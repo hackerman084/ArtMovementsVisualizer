@@ -18,10 +18,13 @@ void setup(){
  skin.put("white", new Color(color(39,47,99))); 
  skin.put("tan", new Color(color(39,47,69))); 
  skin.put("brown", new Color(color(39, 47,29)));
+ 
  palette.put("yellow", new Color(color(57,100,100))); 
  palette.put("cyan", new Color(color(184,100,100)));
  palette.put("red", new Color(color(355,100,100))); 
-
+ palette.put("black", new Color(color(0,0,0)));
+ palette.put("white", new Color(color(0,100,100)));
+ 
  cam = new Capture(this, width, height, 30); //x,y resolution, freq of capture in frames per second
  img = new PImage(width, height); 
  cam.start();  
@@ -49,17 +52,42 @@ color nearestSkinColor(color c){
   }
   else{
     //map the color to the palette
-    if (hue(c) < 60){
-     return palette.get("yellow").c;  
+    if (hue(c) < 60 ){
+      if (brightness(c) > 50 && brightness(c) < 90){
+       return palette.get("yellow").c; 
+      }
+      else if (brightness(c) <= 50){
+        return palette.get("white").c;
+      }
+      else{
+       return palette.get("black").c; 
+      }
     }
     else if (hue(c) < 200){
-     return palette.get("cyan").c; 
+      if (brightness(c) > 50 && brightness(c) < 90){
+          return palette.get("cyan").c; 
+      }
+      else if (brightness(c) <= 50){
+        return palette.get("white").c;
+      }
+      else{
+       return palette.get("black").c; 
+      }
     }
-    else{
-     return palette.get("red").c; 
-    }
-    
+    else if (hue(c) < 360){
+      if (brightness(c) > 50 && brightness(c) < 90){
+         return palette.get("red").c; 
+      }
+      else if (brightness(c) <= 50){
+        return palette.get("white").c;
+      }
+      else{
+       return palette.get("black").c; 
+      } 
+    } 
   }
+  
+  return c;
 }
 void popArt(int rangeSize) {
   loadPixels();
