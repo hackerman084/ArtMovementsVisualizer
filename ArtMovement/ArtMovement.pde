@@ -52,18 +52,25 @@ color nearestSkinColor(color c){
   }
   else{
     //map the color to the palette
-    if (hue(c) < 60 ){
-      if (brightness(c) > 50 && brightness(c) < 90){
-       return palette.get("yellow").c; 
+    if (hue(c) > 0 && hue(c) < 60 ){ 
+      if (brightness(c) > 50){
+        if (saturation(c) >= 50){
+          return palette.get("yellow").c; 
+        }
+        else{
+          return palette.get("white").c;
+        }
       }
-      else if (brightness(c) <= 50){
-        return palette.get("white").c;
-      }
-      else{
-       return palette.get("black").c; 
-      }
+      else {
+          if (saturation(c) <= 50) {
+              return palette.get("black").c;
+          }
+          else{
+            return palette.get("white").c;
+          }
+      }  
     }
-    else if (hue(c) < 200){
+    else if (hue(c) >= 60 && hue(c) < 200){
       if (brightness(c) > 50 && brightness(c) < 90){
           return palette.get("cyan").c; 
       }
