@@ -79,21 +79,37 @@ color nearestSkinColor(color c){
           return palette.get("black").c; 
         }
       }
-    }
-    else if (hue(c) < 360){
-      if (brightness(c) > 50 && brightness(c) < 90){
-         return palette.get("red").c; 
+      else{
+        if (saturation(c) > 40){
+          return palette.get("cyan").c; 
+        }
+        else{
+          return palette.get("white").c;
+        }
+        
       }
-      else if (brightness(c) <= 50){
-        return palette.get("white").c;
+    }
+    else {
+      if (brightness(c) > 50){
+        if (saturation(c) > 70){
+          return palette.get("red").c; 
+        }
+        else{
+          return palette.get("white").c;
+        }
       }
       else{
-       return palette.get("black").c; 
-      } 
+        if (saturation(c) > 70){
+          return palette.get("red").c;
+        }
+        else{
+          return palette.get("black").c;
+        }
+      }
+      
     } 
   }
   
-  return c;
 }
 void popArt(int rangeSize) {
   loadPixels();
