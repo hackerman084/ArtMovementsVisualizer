@@ -38,12 +38,12 @@ void draw(){
 
 color nearestSkinColor(color c){
   //near enough the skin tones to check if it's one
-  if (hue(c) > 0 && hue(c) < 60 && saturation(c) > 20 && saturation(c) < 90){
+  if ((hue(c) % 360) > 0 && (hue(c) % 360) < 60 && saturation(c) > 0 && saturation(c) < 60){
     //check skintones
-     if (brightness(c) > 80){
+     if (brightness(c) > 70){
        return skin.get("white").c; 
      }
-     else if (brightness(c) > 50){
+     else if (brightness(c) > 40){
        return skin.get("tan").c; 
      }
      else{
@@ -52,7 +52,7 @@ color nearestSkinColor(color c){
   }
   else{
     //map the color to the palette
-    if (hue(c) > 0 && hue(c) < 60 ){ 
+    if (hue(c) > 0 && hue(c) < 90){ 
       if (brightness(c) > 50){
         if (saturation(c) >= 50){
           return palette.get("yellow").c; 
@@ -70,15 +70,14 @@ color nearestSkinColor(color c){
           }
       }  
     }
-    else if (hue(c) >= 60 && hue(c) < 200){
-      if (brightness(c) > 50 && brightness(c) < 90){
+    else if (hue(c) >= 90 && hue(c) < 260){
+      if (brightness(c) > 50){
+        if (saturation(c) > 30){
           return palette.get("cyan").c; 
-      }
-      else if (brightness(c) <= 50){
-        return palette.get("white").c;
-      }
-      else{
-       return palette.get("black").c; 
+        }
+        else{
+          return palette.get("black").c; 
+        }
       }
     }
     else if (hue(c) < 360){
