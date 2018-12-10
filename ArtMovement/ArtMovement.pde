@@ -7,7 +7,7 @@ HashMap<String, Color> skin;
 int skinThreshold; 
 color skinColor;
 HashMap<String, Color> palette;
-
+ArrayList<PVector> dots = new ArrayList<PVector>();
 void setup(){
  size(640, 480); 
  colorMode(HSB, 360, 100,100);
@@ -27,21 +27,23 @@ void setup(){
  
  cam = new Capture(this, width, height, 30); //x,y resolution, freq of capture in frames per second
  img = new PImage(width, height); 
+ 
+ for(int i = 0; i < 20000; i++){
+    int x = (int)  random(width); 
+    int y = (int) random(height);
+    dots.add(new PVector(x,y));
+  }
+  
  cam.start();  
 }
 
 void draw(){
  background(255);
- image(img,0,0);
- popArt(4);
- for(int x = 0; x < width; x+=15){
-  for(int y = 0; y < width; y+= 15){
-   noStroke(); 
-   fill(255, 255);
-   ellipse(x,y,7,7);
-  }
-   
- }
+ //image(img,0,0);
+ //popArt(4);
+ 
+ pointilism();
+ //noLoop();
 }
 
 color nearestSkinColor(color c){
@@ -133,13 +135,23 @@ void popArt(int rangeSize) {
     pixels[i] = nearestSkinColor(pixels[i]);
   }
   updatePixels();
+  
+  for(int x = 0; x < width; x+=15){
+  for(int y = 0; y < width; y+= 15){
+   noStroke(); 
+   fill(255, 255);
+   ellipse(x,y,7,7);
+  }
+  }
 }
 
 void pointilism(){
- loadPixels(); 
- for(int i = 0; i < pixels.length; i++){
-   
- }
+  for(PVector dot : dots){
+    noStroke();
+    fill(img.get((int) dot.x,(int) dot.y), noise(dot.x, dot.y) * 300);
+    float point = noise(dot.x, dot.y) * 20;
+    ellipse(dot.x, dot.y, point, point);
+  }
 }
 
 void captureEvent(Capture cam) {

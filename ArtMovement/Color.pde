@@ -3,8 +3,7 @@ class Color{
  
  public Color(color c){
    this.c = c; 
- }
- 
- 
-  
+ } 
 }
+
+ 
