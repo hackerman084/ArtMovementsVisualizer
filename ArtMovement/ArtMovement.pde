@@ -48,10 +48,10 @@ color nearestSkinColor(color c){
   //near enough the skin tones to check if it's one
   if ((hue(c) % 360) > 0 && (hue(c) % 360) < 60 && saturation(c) > 0 && saturation(c) < 60){
     //check skintones
-     if (brightness(c) > 70){
+     if (brightness(c) > 60){
        return skin.get("white").c; 
      }
-     else if (brightness(c) > 40){
+     else if (brightness(c) > 50){
        return skin.get("tan").c; 
      }
      else{
@@ -60,25 +60,33 @@ color nearestSkinColor(color c){
   }
   else{
     //map the color to the palette
-    if (hue(c) > 0 && hue(c) < 90){ 
-      if (brightness(c) > 50){
-        if (saturation(c) >= 50){
+    if (hue(c) > 0 && hue(c) < 70){ 
+      if (brightness(c) > 80){
+        if (saturation(c) >= 20){
           return palette.get("yellow").c; 
         }
         else{
           return palette.get("white").c;
         }
       }
-      else {
+      else if (brightness(c) > 40) {
           if (saturation(c) <= 50) {
-              return palette.get("black").c;
+              return palette.get("white").c;
           }
           else{
-            return palette.get("white").c;
+            return palette.get("black").c;
           }
-      }  
+      }
+      else{
+        if (saturation(c) <= 50) {
+              return palette.get("white").c;
+          }
+          else{
+            return palette.get("black").c;
+          }
+      }
     }
-    else if (hue(c) >= 90 && hue(c) < 260){
+    else if (hue(c) >= 70 && hue(c) < 260){
       if (brightness(c) > 50){
         if (saturation(c) > 30){
           return palette.get("cyan").c; 
@@ -88,11 +96,11 @@ color nearestSkinColor(color c){
         }
       }
       else{
-        if (saturation(c) > 40){
+        if (saturation(c) > 20){
           return palette.get("cyan").c; 
         }
         else{
-          return palette.get("white").c;
+          return palette.get("black").c;
         }
         
       }
@@ -107,7 +115,7 @@ color nearestSkinColor(color c){
         }
       }
       else{
-        if (saturation(c) > 70){
+        if (saturation(c) > 40){
           return palette.get("red").c;
         }
         else{
@@ -125,6 +133,13 @@ void popArt(int rangeSize) {
     pixels[i] = nearestSkinColor(pixels[i]);
   }
   updatePixels();
+}
+
+void pointilism(){
+ loadPixels(); 
+ for(int i = 0; i < pixels.length; i++){
+   
+ }
 }
 
 void captureEvent(Capture cam) {
