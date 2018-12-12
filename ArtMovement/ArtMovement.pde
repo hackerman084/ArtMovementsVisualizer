@@ -9,6 +9,8 @@ int skinThreshold;
 color skinColor;
 HashMap<String, Color> palette;
 ArrayList<PVector> dots = new ArrayList<PVector>();
+ArrayList<PImage> brushes = new ArrayList<PImage>();
+float size = 10; 
 
 void setup(){
  size(640, 480); 
@@ -34,24 +36,27 @@ void setup(){
     int x = (int)  random(width); 
     int y = (int) random(height);
     dots.add(new PVector(x,y));
-  }
+ }
+ 
  brush = new PImage(); 
  brush = loadImage("brushstroke.png"); 
- brush.resize(20,40);
+ for(int i = 0; i < size; i++){
+   int img_size = (int) random(40,90);
+   brush.resize(img_size, img_size);  
+   brushes.add(brush); 
+ } 
+ 
  cam.start();  
 }
 
 void draw(){
  background(0, 0, 100);
- image(img,0,0);
+ //image(img,0,0);
  //popArt(4);
- 
  //pointilism();
  //noLoop();
  
  impressionism();
- 
- 
 }
 
 color nearestSkinColor(color c){
@@ -165,11 +170,8 @@ void pointilism(){
 void impressionism(){
   for(PVector dot : dots){
     tint(img.get((int) dot.x,(int) dot.y));
-    pushMatrix(); 
-    translate(dot.x, dot.y);
-    rotate(random(radians(360))); 
-    image(brush, 0, 0); 
-    popMatrix(); 
+    
+    image(brushes.get((int) random(size)), dot.x, dot.y); 
   }
 }
 

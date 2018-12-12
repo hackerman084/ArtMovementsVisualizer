@@ -7,23 +7,25 @@ class Color{
 }
 
 
-class Brush{
+class Brushes{
   public PImage brush = loadImage("brushstroke.png"); 
   public PVector loc; 
   public color tint; 
+  ArrayList<PImage> brushes;
   
-  public Brush(color c, PVector loc){
-    loc = this.loc; 
-    this.tint = c; 
+  
+  public Brushes(){
+    ArrayList<PImage> brushes = new ArrayList<PImage>();
+    float size = 10; 
+    for(int i = 0; i < size; i++){
+       int img_size = (int) random(20,40);
+       img.resize(img_size, img_size);  
+       brushes.add(img); 
+    }
   }
   
   public void display(){
-     pushMatrix(); 
-     translate(loc.x, loc.y); 
-     rotate(radians(noise(loc.x, loc.y) * 360));
-     scale(int(random(0,2)));
-     image(brush, 0,0); 
-     popMatrix(); 
+     
   }
   
   
