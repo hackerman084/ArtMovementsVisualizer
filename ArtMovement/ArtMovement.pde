@@ -39,7 +39,7 @@ void setup(){
 
 void draw(){
  background(255);
- //image(img,0,0);
+ image(img,0,0);
  //popArt(4);
  
  pointilism();
@@ -135,7 +135,6 @@ void popArt(int rangeSize) {
     pixels[i] = nearestSkinColor(pixels[i]);
   }
   updatePixels();
-  
   for(int x = 0; x < width; x+=15){
   for(int y = 0; y < width; y+= 15){
    noStroke(); 
@@ -143,6 +142,7 @@ void popArt(int rangeSize) {
    ellipse(x,y,7,7);
   }
   }
+  
 }
 
 void pointilism(){
