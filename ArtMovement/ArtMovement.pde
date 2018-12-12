@@ -3,11 +3,13 @@ import controlP5.*;
 import java.util.HashMap; 
 Capture cam; 
 PImage img; 
+PImage brush ; 
 HashMap<String, Color> skin;
 int skinThreshold; 
 color skinColor;
 HashMap<String, Color> palette;
 ArrayList<PVector> dots = new ArrayList<PVector>();
+
 void setup(){
  size(640, 480); 
  colorMode(HSB, 360, 100,100);
@@ -33,17 +35,23 @@ void setup(){
     int y = (int) random(height);
     dots.add(new PVector(x,y));
   }
-  
+ brush = new PImage(); 
+ brush = loadImage("brushstroke.png"); 
+ brush.resize(20,40);
  cam.start();  
 }
 
 void draw(){
- background(255);
+ background(0, 0, 100);
  image(img,0,0);
  //popArt(4);
  
- pointilism();
+ //pointilism();
  //noLoop();
+ 
+ impressionism();
+ 
+ 
 }
 
 color nearestSkinColor(color c){
@@ -151,6 +159,17 @@ void pointilism(){
     fill(img.get((int) dot.x,(int) dot.y), noise(dot.x, dot.y) * 300);
     float point = noise(dot.x, dot.y) * 20;
     ellipse(dot.x, dot.y, point, point);
+  }
+}
+
+void impressionism(){
+  for(PVector dot : dots){
+    tint(img.get((int) dot.x,(int) dot.y));
+    pushMatrix(); 
+    translate(dot.x, dot.y);
+    rotate(random(radians(360))); 
+    image(brush, 0, 0); 
+    popMatrix(); 
   }
 }
 
