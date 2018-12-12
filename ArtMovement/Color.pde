@@ -24,7 +24,7 @@ class Brushes{
     }
   }
   
-  public void display(){
+  public void display(PImage img, ArrayList<PVector> dots){
      
   }
   

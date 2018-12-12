@@ -168,9 +168,9 @@ void pointilism(){
 }
 
 void impressionism(){
-  for(PVector dot : dots){
-    tint(img.get((int) dot.x,(int) dot.y));
-    
+  for(int i = 0; i < dots.size(); i++){
+    PVector dot = dots.get(i);
+    tint(img.get((int) dot.x, (int) dot.y));
     image(brushes.get((int) random(size)), dot.x, dot.y); 
   }
 }
