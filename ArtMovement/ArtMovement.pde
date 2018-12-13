@@ -24,7 +24,7 @@ void setup() {
   colorMode(HSB, 360, 100, 100);
   skin = new HashMap<String, Color>();
   palette = new HashMap<String, Color>();
-
+  println(PFont.list());
   //default skin tones for the pop art. Purposefully wanted it to be same hue / saturation 
   skin.put("white", new Color(color(39, 47, 99))); 
   skin.put("tan", new Color(color(39, 47, 69))); 
@@ -66,11 +66,13 @@ void setup() {
 
   popArtText = controlP5.addTextarea("popArtText")
     .setPosition(10, height/2)
+    .setFont(createFont("Montserrat-Regular",15))
     .setSize(200, 400)
     .setLineHeight(14)
     .setColor(color(0, 0, 100))
     .setColorBackground(color(0, 100, 0))
-    .setColorForeground(color(0, 100, 0));
+    .setColorForeground(color(0, 100, 0))
+    .setVisible(false);
 
   popArtText.setText("Pop Art is a style popularized in the 50s and 60s by artists like " + 
     " Roy Lichtenstein and Andy Warhol. It was a reaction against ' high brow' fine art," + 
@@ -80,6 +82,8 @@ void setup() {
     
    pointilismText = controlP5.addTextarea("pointilismText")
     .setPosition(10, height/2)
+    .setFont(createFont("Montserrat-Regular",15))
+    .setVisible(false)
     .setSize(200, 400)
     .setLineHeight(14)
     .setColor(color(0, 0, 100))
@@ -94,14 +98,16 @@ void setup() {
   impressionismText = controlP5.addTextarea("impressionismText").setPosition(10, height/2)
     .setSize(200, 400)
     .setLineHeight(14)
+    .setVisible(false)
+    .setFont(createFont("Montserrat-Regular",15))
+
     .setColor(color(0, 0, 100))
     .setColorBackground(color(0, 100, 0))
     .setColorForeground(color(0, 100, 0));
 
-  impressionismText.setText("Impressionism is based off the idea of time being ephemeral. The style is meant" + 
-  " to mimic the sight of something if you only caught a quick glimpse of it. Movement was an important part " + 
-  " impressionist pieces, which is evident by the loose and visible brush strokes. At the end of the day, " + 
-  " the overall effect was more important to impressionists than the little details." );
+  impressionismText.setText("Impressionism is based off the idea of time being ephemeral. The style mimics "+
+  "the sight of something if you only caught a quick glimpse of it. Movement was crucial to " + 
+  " impressionist pieces, evident by the loose and visible brush strokes and attention to overall effect as opposed to little details." );
   cam.start();
   
   
