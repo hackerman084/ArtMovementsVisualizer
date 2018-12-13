@@ -9,8 +9,9 @@ int skinThreshold;
 color skinColor;
 HashMap<String, Color> palette;
 ArrayList<PVector> dots = new ArrayList<PVector>();
-ArrayList<PImage> brushes = new ArrayList<PImage>();
-float size = 10; 
+ArrayList<Brush> brushes = new ArrayList<Brush>();
+ArrayList<PImage> brushset; 
+float size = 1000; 
 
 void setup(){
  size(640, 480); 
@@ -31,21 +32,28 @@ void setup(){
  
  cam = new Capture(this, width, height, 30); //x,y resolution, freq of capture in frames per second
  img = new PImage(width, height); 
- 
+ brushset = new ArrayList<PImage>();
+ brushset.add(loadImage("brushstroke.png"));
+ brushset.add(loadImage("brushstroke2.png"));
+ brushset.add(loadImage("brushstroke3.png"));
+ brushset.add(loadImage("brushstroke4.png"));
+ brushset.add(loadImage("brushstroke5.png"));
+ brushset.add(loadImage("brushstroke6.png"));
+ brushset.add(loadImage("brushstroke7.png"));
+ brushset.add(loadImage("brushstroke8.png"));
+
+ for(PImage a : brushset){
+  a.resize(40,40); 
+ }
+
+
  for(int i = 0; i < 20000; i++){
     int x = (int)  random(width); 
     int y = (int) random(height);
     dots.add(new PVector(x,y));
  }
- 
- brush = new PImage(); 
- brush = loadImage("brushstroke.png"); 
- for(int i = 0; i < size; i++){
-   int img_size = (int) random(40,90);
-   brush.resize(img_size, img_size);  
-   brushes.add(brush); 
- } 
- 
+
+ System.out.println("SIZE: " +brushes.size());
  cam.start();  
 }
 
@@ -170,10 +178,13 @@ void pointilism(){
 void impressionism(){
   for(int i = 0; i < dots.size(); i++){
     PVector dot = dots.get(i);
-    tint(img.get((int) dot.x, (int) dot.y));
-    image(brushes.get((int) random(size)), dot.x, dot.y); 
+    tint(img.get((int) dot.x, (int) dot.y), noise(dot.x, dot.y)*300);
+    
+    image(brushset.get((int) random(8)), dot.x, dot.y); 
   }
 }
+
+
 
 void captureEvent(Capture cam) {
   cam.read();
