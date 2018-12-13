@@ -11,7 +11,10 @@ HashMap<String, Color> palette;
 ArrayList<PVector> dots = new ArrayList<PVector>();
 ArrayList<Brush> brushes = new ArrayList<Brush>();
 ArrayList<PImage> brushset; 
-float size = 1000; 
+float size = 1000;
+ControlP5 controlP5;
+DropdownList p1;
+float chosen_option = -1.0; 
 
 void setup(){
  size(640, 480); 
@@ -53,18 +56,59 @@ void setup(){
     dots.add(new PVector(x,y));
  }
 
- System.out.println("SIZE: " +brushes.size());
+ 
+ controlP5 = new ControlP5(this);
+  p1 = controlP5.addDropdownList("MovementSelect",width/2-50,100,100,120);
+  customize(p1);
  cam.start();  
+}
+
+void customize(DropdownList ddl) {
+  ddl.setBackgroundColor(color(190));
+  ddl.setItemHeight(20);
+  ddl.setBarHeight(15);
+  ddl.addItem("Pop Art", 0); // give each item a value, in this example starting from zero
+  ddl.addItem("Pointilism", 1);
+  ddl.addItem("Impressionism", 2);
+
+  ddl.setColorBackground(color(60));
+  ddl.setColorActive(color(255,128));
+  //ddl.enableCollapse();
+  ddl.setItemHeight(20);
+  //ddl.actAsPulldownMenu(true);
+}
+
+void controlEvent(ControlEvent theEvent) {
+  // if the event is from a group, which is the case with the dropdownlist
+  if (theEvent.isGroup()) {
+    // if the name of the event is equal to ImageSelect (aka the name of our dropdownlist)
+   
+  } else if(theEvent.isController()) {
+    // not used in this sketch, but has to be included
+     if (theEvent.isFrom("MovementSelect")) {
+      // then do stuff, in this case: set the variable selectedImage to the value associated
+      // with the item from the dropdownlist (which in this case is either 0 or 1)
+      println("CONTROL: "+theEvent.getValue()); 
+      chosen_option = int(theEvent.getValue());
+    }
+  }
 }
 
 void draw(){
  background(0, 0, 100);
- //image(img,0,0);
- //popArt(4);
- //pointilism();
- //noLoop();
- 
- impressionism();
+
+ if (chosen_option == 0){
+  image(img,0,0);
+  popArt(); 
+ }
+ else if (chosen_option == 1){
+  pointilism();
+ }
+ else if (chosen_option == 2){
+    impressionism();
+
+   
+ }
 }
 
 color nearestSkinColor(color c){
@@ -150,7 +194,7 @@ color nearestSkinColor(color c){
   }
   
 }
-void popArt(int rangeSize) {
+void popArt() {
   loadPixels();
   for (int i=0; i<pixels.length; i++) {
     pixels[i] = nearestSkinColor(pixels[i]);
